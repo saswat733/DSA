@@ -274,23 +274,23 @@ void insertinsorted(node* &head,int d){
 
 
                                     //Delete function
-void deleted(node* head,node* tail,int pos){
-    
-    if(pos==1){
-        head=head->next;
-        delete head;
-    }else{
-        node* prev=head;
-        node* curr=NULL;
-        for(int i=0;i<pos;i++){
-            prev=curr;
-            prev=prev->next;
-        }
-        if(prev){
-            curr->next=prev->next;
-            delete curr;
-        }
+void deletedAtHead(node* &head){
+    node* temp=head;
+    head=head->next;
+    temp->next=NULL;
+    delete temp;
+}
+
+void deletedAtAnyPosition(node* &head,int pos){
+    node* p=head;
+    node* q=NULL;
+    for(int i=0;i<pos-1;i++){
+        q=p;
+        p=p->next;
     }
+    q->next=p->next;
+    p->next=NULL;
+    delete p;
 }
 int main(){
     node* node1=new node(100);
@@ -304,8 +304,11 @@ int main(){
     insertedatLast(head,tail,120);
     insertedatLast(head,tail,130);
     insertinsorted(head,110);
+    print(head);
+    deletedAtHead(head);
+
+    deletedAtAnyPosition(head,4);
     // print(head);
-    deleted(head,tail,2);
     print(head);
 
 }
