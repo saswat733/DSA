@@ -101,13 +101,12 @@ int main(){
     node* temp=NULL;
     display(temp);
     insert(temp,5,3);
+    insert(temp,5,23);
     display(temp);
     // // insert(temp,3,5);
     // display(temp);
     // insert(temp,3,10);
     // display(temp);
 
-    deletenode(temp,10);
-    display(temp);
    
 }

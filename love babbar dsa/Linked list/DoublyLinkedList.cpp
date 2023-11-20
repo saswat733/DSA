@@ -138,22 +138,83 @@ void deleteNode(int position,node* &head){
     }
 }
 
+                                        //Reversing the Linked List
+void ReverseLL(node* &head){
+    node* p=head;
+    node* q=NULL;
+    node* r=NULL;
+    while(p!=NULL){
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    head=q;
+}
+
+void ReverseLL2(node* &head){           //using array
+    node* p=head;
+    int i=0;
+    int a[10];
+    while(p!=NULL){
+        a[i]=p->data;
+        p=p->next;
+        i++;
+    }
+    p=head;
+    i--;
+    while(p!=NULL){
+        p->data=a[i--];
+        p=p->next;
+    }
+
+}
+
+void ReverseLLR(node* &head,node* tail){
+    node* p=head;
+    node* q=NULL;
+    if(p!=NULL){
+        ReverseLLR(p,p->next);
+        p->next=q;
+
+    }
+    else{
+        head=q;
+    }
+
+}
+
+node* reverse_DLL(node* &head) {
+    node* curr = head;
+    node* forward;
+
+    while (curr != NULL) {
+        forward = curr->next;
+        curr->next = curr->prev;
+        curr->prev = forward;
+        curr = forward;
+    }
+
+    // At the end of the loop, curr will be NULL, so return the last non-NULL node's prev
+    return head->prev;
+}
+
 int main(){
     node* node1=new node(10);
     node* head=node1;
     node* tail=node1;
 
     insertnodeatHead(tail,head,20);
-    display(head);
-    cout<<"head "<<head->data<<endl;
-    cout<<"tail "<<tail->data<<endl;
+    // display(head);
+    // cout<<"head "<<head->data<<endl;
+    // cout<<"tail "<<tail->data<<endl;
 cout<<endl;
-    insertnodeatHead(tail,head,30);
-    display(head);
-    cout<<"head "<<head->data<<endl;
-    cout<<"tail "<<tail->data<<endl;
+    // insertnodeatHead(tail,head,30);
+    // display(head);
+    // cout<<"head "<<head->data<<endl;
+    // cout<<"tail "<<tail->data<<endl;
 cout<<endl;
-    insertnodeatTail(head,tail,40);
+    // insertnodeatTail(head,tail,40);
     display(head);
     cout<<"head "<<head->data<<endl;
     cout<<"tail "<<tail->data<<endl;
@@ -181,6 +242,11 @@ cout<<length(tail)<<endl;
     cout<<length(tail)<<endl;
     cout<<length(head)<<endl;
 
-    deleteNode(7,head);
+    // deleteNode(7,head);
+    display(head);
+    // ReverseLL(head);
+    // ReverseLL2(head);
+    // ReverseLLR(head,head);
+    head=reverse_DLL(head);
     display(head);
 }

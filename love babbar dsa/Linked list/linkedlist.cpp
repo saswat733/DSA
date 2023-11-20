@@ -222,6 +222,22 @@ void display(node* &head){
     }
     cout << endl;
 }
+
+
+                        //function to check if linked list is sorted
+bool sortedornot(node* &head){
+    int x=-32768;
+    node* temp=head;
+    while(temp!=NULL){
+        if(temp->data<x){
+            return false;
+        }
+        x=temp->data;
+        temp=temp->next;
+        return true;
+
+    }
+}
 int main(){
     node* node1=new node(10);
     // insert(node1,20);
@@ -231,11 +247,12 @@ int main(){
     node* tail = node1;
     display(head);
 
-    insertAtTail(tail, 12);
+    insertAtTail(tail, 11);
 
     display(head);
     
     insertAtTail(tail, 15);
     display(head);
+    cout<<sortedornot(head);
     // insertatPosition(head,2,100);
 }

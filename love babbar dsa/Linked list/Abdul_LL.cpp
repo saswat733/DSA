@@ -166,23 +166,7 @@ void deletenode(int position,node* &head){
 }
 
 
-void reverse(node* head){
-    if(head==NULL || head->next==NULL){
-        cout<<head<<endl;
-    }
-        node* curr=head;
-        node* prev=NULL;
-        node* forward=NULL;
-        while(curr!=NULL){
-            forward=curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=forward;
-    
-    }
 
-
-}
 
                                     //function to get max node
 int maxele(node * head){
@@ -315,6 +299,90 @@ void deleteBoth(node* &head,int pos){
 
     }
 }
+
+                                    //removing duplicates
+void RemoveDuplicates(node* &head){
+    node* p=head;
+    node* q=head->next;
+    while(q!=NULL){
+        if(p->data!=q->data){
+            p=q;
+            q=q->next;
+        }
+        else{
+            p->next=q->next;
+            delete q;
+            q=p->next;
+        }
+    }
+}
+bool sortedornot(node* &head){
+    int x=-32768;
+    node* temp=head;
+    while(temp!=NULL){
+        if(temp->data<x){
+            return false;
+        }
+        x=temp->data;
+        temp=temp->next;
+       
+
+    }
+     return true;
+}
+
+bool isLoop(node* &head){
+    node* p;
+    node* q;
+    p=q=head;
+    do{
+        p=p->next;
+        q=q->next;
+        q=q!=NULL?q->next:NULL;
+    }while(p && q);{
+        return p==q?true:false;
+    }
+    
+}
+
+
+void reverse(node* &head){
+    node* forward=head;
+    node* prev=NULL;
+    node* curr=NULL;
+
+    while(forward!=NULL){
+        prev=curr;
+        curr=forward;
+        forward=forward->next;
+        curr->next=prev;
+    }
+    head=curr;
+}
+
+node* reverseDLL(node* head) {
+
+    if(head == NULL || head -> next == NULL) {
+
+        return head;
+
+    }
+
+
+
+    node* newHead = reverseDLL(head -> next);
+
+    head->next->next=head;
+
+    head->prev=head->next;
+
+    head->next=NULL;
+
+
+
+    return newHead;
+
+}
 int main(){
     node* node1=new node(100);
 
@@ -322,18 +390,26 @@ int main(){
     node* tail=node1;
     
     insertedAtHead(head,90);
-    insertedAtHead(head,80);
+    insertedAtHead(head,85);
     insertedatanyPosition(head,85,0);
     insertedatLast(head,tail,120);
-    insertedatLast(head,tail,130);
+    insertedatLast(head,tail,110);
     insertinsorted(head,110);
-    print(head);
+    // print(head);
     // deletedAtHead(head);
 
-    deleteBoth(head,3);
+    // deleteBoth(head,3);
 
     // deletedAtAnyPosition(head,4);
     // print(head);
+    print(head);
+//    cout<< sortedornot(head);
+
+    // RemoveDuplicates(head);
+    // cout<<isLoop(head)<<endl;
+    reverse(head);
+    print(head);
+    reverseDLL(head);
     print(head);
 
 }
