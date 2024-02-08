@@ -1,14 +1,14 @@
-#include<iostream>
-#include<vector>
-using namespace std;
-int find(vector<int> arr){
-    int ans=0;
-    for(int i=0;i<arr.size();i++){
-        ans=ans^arr[i];
-    }
-    return ans;
-}
-int main(){    
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// int find(vector<int> arr){
+//     int ans=0;
+//     for(int i=0;i<arr.size();i++){
+//         ans=ans^arr[i];
+//     }
+//     return ans;
+// }
+// int main(){    
     // vector<int> arr(10);
     // for(int i=0;i<10;i++){
     //     cin>>arr[i];
@@ -122,7 +122,7 @@ int main(){
         // }
 
 
-        vector<int> arr{10,-18,6,5,-2,-6,111,1};
+        // vector<int> arr{10,-18,6,5,-2,-6,111,1};
         // for(int i=0;i<arr.size();i++){                   //method 1
         //     for(int j=i+1;j<arr.size();j++){
         //         if(arr[j]<arr[i]){
@@ -147,9 +147,9 @@ int main(){
         //     }
         // }
 
-        for(auto val:arr){
-            cout<<val<<" ";
-        }
+        // for(auto val:arr){
+        //     cout<<val<<" ";
+        // }
 
 
 
@@ -159,4 +159,30 @@ int main(){
      
 
 
+// }
+
+
+#include<iostream>
+#include<vector>
+using namespace std;
+int main(){
+    vector<int> arr{2,1,4,3};
+    
+    vector<int> a;
+    for(int i=0;i<arr.size();i++){
+        int min=arr[i];
+        for(int j=i+1;j<arr.size();j++){
+            if(arr[j]<min){
+                min=arr[j];
+            }
+            else{
+                min=-1;
+            }
+        }
+        a.push_back(min);
+    }
+
+    for(int i=0;i<a.size();i++){
+        cout<<a[i]<<" ";
+    }
 }

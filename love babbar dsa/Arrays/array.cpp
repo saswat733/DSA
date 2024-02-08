@@ -4,17 +4,17 @@
 using namespace std;
 
 // program to find the min or max number from a given array using linear search
-int main(){
-int a[6]={-2,-100,0,-20,-5,-8};
-int max=INT_MIN;             //assigning the min as minimum possible value
-for(int i=0;i<6;i++){
-    if(a[i]>max){            //if the number is less than min than update the min
-        max=a[i];
-    }
-}
-cout<<max;
-return 0;
-}
+// int main(){
+// int a[6]={-2,-100,0,-20,-5,-8};
+// int max=INT_MIN;             //assigning the min as minimum possible value
+// for(int i=0;i<6;i++){
+//     if(a[i]>max){            //if the number is less than min than update the min
+//         max=a[i];
+//     }
+// }
+// cout<<max;
+// return 0;
+// }
 // program to reverse an array    10 80 20 70 30 60 40 50
 
 // int a[8]={10,20,30,40,50,60,70,80};
@@ -686,3 +686,19 @@ return 0;
 //   }
 // }
 
+
+int main(){
+  int a[5]={10,30,20,50,40};
+  for(int i=0;i<5;i++){
+    for(int j=0;j<5;j++){
+      if(a[i]<a[j]){
+        int temp=a[i];
+        a[i]=a[j];
+        a[j]=temp;
+      }
+    }
+  }
+  for(int i=0;i<5;i++){
+    cout<<a[i]<<" ";
+  }
+}

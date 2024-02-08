@@ -245,25 +245,30 @@ void middle_LinkedList(node* &head){
     cout<<"the middle element is:"<<slow->data;
 }
 
-void middle_reverse(node* &head,node* &head2,int k){
-    node* temp1=head1;
-    node* temp2=head2;
-    node* prev=NULL;
-
-    while(temp1<k){
-        forward=temp1->next;
-        temp1->next=prev;
-        prev=temp1;
-        temp1=forward;
+node* middle_reverse(node* &head,int k){
+    if (head == NULL) {
+        return NULL;
+    }
+    node* next = NULL;
+    node* curr = head;
+    node* prev = NULL;
+    int i = 0;
+    while (curr != NULL && i < k) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+        i++;
     }
 
-    while(temp2!=NULL){
-        
+    if (next != NULL) {
+        head->next = middle_reverse(next, k);
     }
+
+    // Return the new head of the reversed list
     return prev;
+}
 
-}
-}
 
 int main() {
     // Initialize a linked list
@@ -276,14 +281,16 @@ int main() {
 
     // Insert nodes at the tail
     insertAtTail(tail, 20);
-    insertAtTail(tail, 20);
+    insertAtTail(tail, 90);
 
     // Print the linked list after insertions
     print(head);
 
     // Insert nodes at the tail
     insertAtTail(tail, 30);
-    insertAtTail(tail, 30);
+    insertAtTail(tail, 40);
+    insertAtTail(tail, 490);
+    insertAtTail(tail, 408);
 
     // Print the linked list after more insertions
     print(head);
@@ -310,7 +317,9 @@ int main() {
     //     std::cout << "The linked list is empty." << std::endl;
     // }
 
-    middle_LinkedList(node1);
+    // middle_LinkedList(node1);
+   node1=middle_reverse(node1,2);
+    print(node1);
 
     return 0;
 }
