@@ -4,6 +4,9 @@
 using namespace std;
 
 //Reverse an array
+//we can also reverse an array using single variable using n and i ====> last digit(n-i-1) and for first digit(i=0) then swap them
+
+//using 2 variable
 vector<int> rever(int n,vector<int> &nums,vector<int> &ans){
     if(n==0){
         return ans;
@@ -86,10 +89,32 @@ vector<int> generateFibonacciNumbers(int n) {
 
 }
 
-int main(){
-  string str="abcd";
-  bool ans=isPalindrome(str);
 
-  cout<<ans;
-    
+
+// Function to generate all subsets of an array
+void generateSubset(int index, vector<int>& result, const vector<int>& arr, int n) {
+    if (index == n) {
+        for (int i = 0; i < result.size(); i++) {
+            cout << result[i] << " ";
+        }
+        cout << endl;
+        return;
+    }
+
+    // Include the current element and generate subsets
+    result.push_back(arr[index]);
+    generateSubset(index + 1, result, arr, n);
+
+    // Exclude the current element and generate subsets
+    result.pop_back();
+    generateSubset(index + 1, result, arr, n);
+}
+
+int main() {
+    vector<int> arr{1, 2, 3};
+    vector<int> result;
+
+    generateSubset(0, result, arr, arr.size());
+
+    return 0;
 }
