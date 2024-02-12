@@ -215,8 +215,59 @@ int count_subsequences(int index,int sum,int s,vector<int> nums){
     int r=count_subsequences(index+1,sum,s,nums);
     return l+r;
 }
+
+
+//merge sort
+
+
+void mergehai(vector<int> &arr, int start, int end, int mid) {
+    int n1 = mid - start + 1;
+    int n2 = end - mid;
+    vector<int> leftArray(n1);
+    vector<int> rightArray(n2);
+    for (int i = 0; i < n1; i++) {
+        leftArray[i] = arr[start + i];
+    }
+    for (int j = 0; j < n2; j++) {
+        rightArray[j] = arr[mid + 1 + j];
+    }
+
+    int i = 0, j = 0, k = start; // Corrected k to start
+    while (i < n1 && j < n2) {
+        if (leftArray[i] <= rightArray[j]) {
+            arr[k++] = leftArray[i++];
+        } else {
+            arr[k++] = rightArray[j++];
+        }
+    }
+
+    while (i < n1) {
+        arr[k++] = leftArray[i++];
+    }
+    while (j < n2) {
+        arr[k++] = rightArray[j++];
+    }
+}
+
+void mergeSor(vector<int> &arr, int start, int end) {
+    if (start < end) {
+        int mid = start + (end - start) / 2; 
+        mergeSor(arr, start, mid); 
+        mergeSor(arr, mid + 1, end); 
+        mergehai(arr, start, end, mid);
+    }
+}
+
+void mergeSort(vector<int> &arr, int n) {
+    mergeSor(arr, 0, n - 1);
+}
+
 int main() {
-   vector<int> arr{1,2,1};
-   vector<int> results;
-    cout<<count_subsequences(0,2,0,arr);
+    vector<int> arr{1, 2, 1};
+    mergeSort(arr, 3);
+    for (int i = 0; i < arr.size(); i++) {
+        cout << arr[i] << ' ';
+    }
+    cout << endl;
+    return 0;
 }
