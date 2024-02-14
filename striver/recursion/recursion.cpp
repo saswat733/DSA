@@ -217,11 +217,12 @@ int count_subsequences(int index,int sum,int s,vector<int> nums){
 }
 
 
-//merge sort
+//merge sort time complexity:O(nlogn)  space complexity:O(n)
 
 
 void mergehai(vector<int> &arr, int start, int end, int mid) {
     int n1 = mid - start + 1;
+
     int n2 = end - mid;
     vector<int> leftArray(n1);
     vector<int> rightArray(n2);
@@ -262,9 +263,11 @@ void mergeSort(vector<int> &arr, int n) {
     mergeSor(arr, 0, n - 1);
 }
 
+
+
 int main() {
-    vector<int> arr{1, 2, 1};
-    mergeSort(arr, 3);
+    vector<int> arr{1,2,3,4,5};
+    rotateArray(arr,2);
     for (int i = 0; i < arr.size(); i++) {
         cout << arr[i] << ' ';
     }
