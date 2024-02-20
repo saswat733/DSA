@@ -117,20 +117,6 @@ void generateSubset(int index, vector<int>& result, const vector<int>& arr, int 
 // You are given an array 'nums' of ‘n’ integers.
 
 
-// Return all subset sums of 'nums' in a non-decreasing order.
-void generateSubsetSums(int index, int sum, const vector<int>& nums, vector<int>& subsetSums) {
-    if (index == nums.size()) {
-        subsetSums.push_back(sum);
-        return;
-    }
-
-    // Include the current element and generate subsets
-    generateSubsetSums(index + 1, sum + nums[index], nums, subsetSums);
-
-    // Exclude the current element and generate subsets
-    generateSubsetSums(index + 1, sum, nums, subsetSums);
-}
-
 
 
 vector<int> subsetSums(vector<int>& nums) {
@@ -264,13 +250,24 @@ void mergeSort(vector<int> &arr, int n) {
 }
 
 
+// Return all subset sums of 'nums' in a non-decreasing order.
+void generateSubsetSums(int index, int sum, const vector<int>& nums, vector<int>& subsetSums) {
+    if (index == nums.size()) {
+        subsetSums.push_back(sum);
+        return;
+    }
+
+    // Include the current element and generate subsets
+    generateSubsetSums(index + 1, sum + nums[index], nums, subsetSums);
+
+    // Exclude the current element and generate subsets
+    generateSubsetSums(index + 1, sum, nums, subsetSums);
+}
+
 
 int main() {
     vector<int> arr{1,2,3,4,5};
-    rotateArray(arr,2);
-    for (int i = 0; i < arr.size(); i++) {
-        cout << arr[i] << ' ';
-    }
+   generateSubsetSums(0,0,nums,subsetSums)
     cout << endl;
     return 0;
 }

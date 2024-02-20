@@ -9,10 +9,7 @@ void selection_sort(int a[],int n){
                 min=j;
             }
         }
-  cout<<endl;
-    for(int i=0;i<5;i++){
-    cout<<a[i]<<" ";
-  }  
+  
         swap(a[min],a[i]);
     }
      for(int i=0;i<5;i++){
