@@ -23,6 +23,10 @@ vector<int> generateSubsets(vector<int> arr,int index,vector<int> result,int n,i
 }
 
 
+//reverse the aray
+vector<int> reverseArray(vector<int> arr,int n){
+    
+}
 
 int main(){
     vector<int> arr{1,2,3};

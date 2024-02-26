@@ -1,3 +1,3 @@
-vector<int> getSecondOrderElements(int n, vector<int> a) {
-//     sortArray(a);
-// }
+ for(int i=0;i<ans.size();i++){
+    cout<<ans[i]<<" ";
+   }
