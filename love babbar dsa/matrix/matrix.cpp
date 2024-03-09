@@ -28,44 +28,44 @@ using namespace std;
                                     //printing the matrix in spiral form
     
     // vector<vector <int>> a{{1,2,3,4},{5,6,7,8},{9,10,11,12}};
-    // vector<int> ans;
-    // int m=a.size();
-    // int n=a[0].size();
-    // int total_ele=m*n;
-    // int start_row=0;
-    // int last_col=n-1;
-    // int last_row=m-1;
-    // int first_col=0;
-    // int count=0;
-    // while(count<total_ele){
+    vector<int> ans;
+    int m=a.size();
+    int n=a[0].size();
+    int total_ele=m*n;
+    int start_row=0;
+    int last_col=n-1;
+    int last_row=m-1;
+    int first_col=0;
+    int count=0;
+    while(count<total_ele){
 
-    //     //print first row
-    //     for(int i=first_col;i<last_col && count>total_ele;i++){
-    //         ans.push_back(a[start_row][i]);
-    //         count++;
-    //     }
-    //     start_row++;
+        //print first row
+        for(int i=first_col;i<last_col && count>total_ele;i++){
+            ans.push_back(a[start_row][i]);
+            count++;
+        }
+        start_row++;
 
-    //     //print last column
-    //     for(int i=start_row;i<=last_row && count>total_ele;i++){
-    //         ans.push_back(a[last_col][i]);
-    //         count++;
-    //     }
-    //     last_col--;
+        //print last column
+        for(int i=start_row;i<=last_row && count>total_ele;i++){
+            ans.push_back(a[last_col][i]);
+            count++;
+        }
+        last_col--;
 
-    //     //print last row
-    //     for(int i=last_col;i>=first_col && count>total_ele;i--){
-    //         ans.push_back(a[last_row][i]);
-    //         count++;
-    //     }
-    //     last_row--;
+        //print last row
+        for(int i=last_col;i>=first_col && count>total_ele;i--){
+            ans.push_back(a[last_row][i]);
+            count++;
+        }
+        last_row--;
 
-    //     //print first column
-    //     for(int i=last_row;i>=start_row && count>total_ele;i--){
-    //         ans.push_back(a[first_col][i]);
-    //         count++;
-    //     }
-    //     first_col++;
+        //print first column
+        for(int i=last_row;i>=start_row && count>total_ele;i--){
+            ans.push_back(a[first_col][i]);
+            count++;
+        }
+        first_col++;
 
     // }
 // }
@@ -109,24 +109,25 @@ using namespace std;
 // }
 
                                                 //program to rotate a 2D matrix by 90deg
-// int main(){
-//     vector<vector <int>> a{{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
-//     int m=a.size();
-//     int n=a[0].size();
-//     for(int i=0;i<m;i++){
-//         for(int j=0;j<n;j++){
-//             cout<<a[i][j]<<" ";
-//         }
-//         cout<<endl;
-//     }
-//     cout<<endl;
-//     for(int i=0;i<m;i++){
-//         for(int j=n-1;j>=0;j--){
-//             cout<<a[j][i]<<" ";
-//         }
-//         cout<<endl;
-//     }
-// }
+int main(){
+    vector<vector <int>> a{{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
+    int m=a.size(); //for column
+    int n=a[0].size();  //for row
+    cout<<m<<" "<<n<<endl;
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            cout<<a[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+    for(int i=0;i<m;i++){
+        for(int j=n-1;j>=0;j--){
+            cout<<a[j][i]<<" ";
+        }
+        cout<<endl;
+    }
+}
 
 
 // int binary(vector<vector<int>> a,int key){               //binary search on a 2D matrix
@@ -195,7 +196,7 @@ using namespace std;
 
 // }
 
-int main(){
-    int a[2][3]={{1,2,3},{4,5,6}};
-    cout<<size(a[0]);
-}
+// int main(){
+//     int a[2][3]={{1,2,3},{4,5,6}};
+//     cout<<size(a[0]);
+// }
