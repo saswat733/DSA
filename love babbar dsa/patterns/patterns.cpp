@@ -1,7 +1,6 @@
 #include "iostream"
 using namespace std;
-int main()
-{
+// /
 
     //  * * * * * * * *
     //  *             *
@@ -882,4 +881,37 @@ abcdcba
 
 
 
+// }
+
+int main(){
+    int n;
+    cout<<"enter:"<<endl;
+    cin>>n;
+    int count=0;
+    int i=0;
+    for(;i<n-1;i++){
+        int j=0;
+        for(;j<=n/2;j++){
+           if(i%n==j){
+            cout<<"*";
+            count++;
+           }
+           cout<<" ";
+        }
+       cout<<endl;
+
+    }
+    count=count-2;
+    for(;i<n;i++){
+        for(int j=0;j<=count;j++){
+            if(j==count){
+                cout<<"*";
+            }
+            cout<<" ";
+        }
+            cout<<endl;
+    }
+
+    
+    
 }
