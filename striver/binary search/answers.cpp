@@ -395,6 +395,206 @@ int aggressiveCows(vector<int> &stalls, int k) {
     return high;  // Return the maximum possible minimum distance
 }
 
+
+//**********************************************************************
+//book allocation problem
+
+
+int countStudents(vector<int> arr, int pages) {
+    int students = 1; // Initialize the number of students to 1
+    long long pagesStudent = 0; // Initialize the number of pages read by the current student to 0
+
+    // Iterate through the array of pages
+    for (int i = 0; i < arr.size(); i++) {
+        // If adding the current book's pages to the pages read by the current student does not exceed the maximum pages allowed,
+        // add the pages to the current student's count
+        if (pagesStudent + arr[i] <= pages) {
+            pagesStudent += arr[i];
+        } 
+        // If adding the current book's pages exceeds the maximum pages allowed,
+        // increment the number of students and reset the pages read by the current student to the current book's pages
+        else {
+            students += 1;
+            pagesStudent = arr[i];
+        }
+    }
+    return students; // Return the total number of students required
+}
+
+int findPages(vector<int>& arr, int n, int m) {
+    if (m > n) {
+        return -1; // If the number of students is greater than the number of books, return -1 (invalid input)
+    }
+
+    // Find the range of pages such that each student can be assigned at least one book
+    int low = *max_element(arr.begin(), arr.end()); // Minimum possible number of pages assigned to a student is the maximum number of pages in any book
+    int high = accumulate(arr.begin(), arr.end(), 0); // Maximum possible number of pages assigned to a student is the sum of all pages in all books
+
+    // Perform binary search within the range of possible pages
+    while (low <= high) {
+        int mid = (low + high) / 2; // Calculate the mid-point of the range
+        int students = countStudents(arr, mid); // Count the number of students required to read books with maximum pages as mid
+
+        // If the number of students required is greater than the given number of students (m),
+        // increase the minimum pages per student to mid+1
+        if (students > m) {
+            low = mid + 1;
+        } 
+        // If the number of students required is less than or equal to the given number of students (m),
+        // reduce the maximum pages per student to mid-1
+        else {
+            high = mid - 1;
+        }
+    }
+    return low; // Return the minimum number of pages per student that satisfies the condition
+}
+
+
+//*****************************************************
+// largest subarray sum minimized
+
+#include<bits/stdc++.h>
+
+//function for getting the number of students who got allocated slabs
+int func(vector<int> a,int pages){
+    int ans=1;
+    int startSum=0;
+    for(int i=0;i<a.size();i++){
+        if(startSum+a[i]<=pages){
+            startSum+=a[i];
+        }
+        else{
+            ans++;
+            startSum=a[i];
+        }
+    }
+    return ans;
+}
+
+//check for whether the number of students matches the give constraint
+int largestSubarraySumMinimized(vector<int> a, int k) {
+    if(k>a.size()){
+        return -1;
+    }
+
+    int low=*max_element(a.begin(),a.end());
+    int high=accumulate(a.begin(),a.end(),0);
+
+    while(low<=high){
+        int mid=(low+high)/2;
+        int ans=func(a,mid);
+        if(ans>k){
+            low=mid+1;
+        }
+        else{
+            high=mid-1;
+        }
+    }
+    return low;
+}
+
+
+//********************************************************
+// Minimize the max distance to substation
+
+//brute force
+double minimiseMaxDistance(vector<int> &arr, int k) {
+  int n = arr.size();
+  vector<int> howMany(n - 1, 0);
+  for (int gasStations = 1; gasStations <= k; gasStations++) {
+    long double maxSection = -1;
+    int maxInd = -1;
+    for (int i = 0; i < n - 1; i++) {
+      long double diff = (arr[i + 1] - arr[i - 1]);
+      long double sectionLength = diff / ((long double)(howMany[i] + 1));
+      if (sectionLength > maxSection) {
+        maxSection = sectionLength;
+        maxInd = i;
+      }
+    }
+    howMany[maxInd]++;
+  }
+  long double maxAns = -1;
+  for (int i = 0; i < n - 1; i++) {
+    long double diff = (arr[i + 1] - arr[i]);
+    long double sectionLength = diff / (long double)(howMany[i] + 1);
+    maxAns = max(maxAns, sectionLength);
+  }
+
+  return maxAns;
+}
+
+//************88888888*************************************
+//find the median of two sorted array
+double median(vector<int>& a, vector<int>& b) {
+    // Initialize variables
+    vector<int> arr3;
+    int n1=a.size();
+    int n2=b.size();
+    int n=(n1+n2);
+    int i=0,j=0; // Initialize indices for arrays a and b
+    int ind2=n/2;
+    int ind1=ind2-1;
+    int cnt=0; // Counter to track the number of elements processed
+    int ind1el=-1,ind2el=-1; // Initialize elements at indices ind1 and ind2
+
+    // Merge arrays and find elements contributing to median
+    while(i<n1 && j<n2){
+        if(a[i]<b[j]){ // If element in a is smaller
+            if(cnt==ind1){ // If it's at the position of ind1
+                ind1el=a[i]; // Update ind1el
+            }
+            if(cnt==ind2){ // If it's at the position of ind2
+                ind2el=a[i]; // Update ind2el
+            }
+            cnt++; // Increment the counter
+            i++; // Move to the next element in array a
+        }
+        else{ // If element in b is smaller or equal
+            if(cnt==ind1){ // If it's at the position of ind1
+                ind1el=b[j]; // Update ind1el
+            }
+            if(cnt==ind2){ // If it's at the position of ind2
+                ind2el=b[j]; // Update ind2el
+            }
+            cnt++; // Increment the counter
+            j++; // Move to the next element in array b
+        }
+    }
+
+    // Handle remaining elements in array a
+    while(i<n1){
+        if(cnt==ind1){ // If current position is ind1
+            ind1el=a[i]; // Update ind1el
+        }
+        if(cnt==ind2){ // If current position is ind2
+            ind2el=a[i]; // Update ind2el
+        }
+        cnt++; // Increment the counter
+        i++; // Move to the next element in array a
+    }
+
+    // Handle remaining elements in array b
+    while(j<n2){
+        if(cnt==ind1){ // If current position is ind1
+            ind1el=b[j]; // Update ind1el
+        }
+        if(cnt==ind2){ // If current position is ind2
+            ind2el=b[j]; // Update ind2el
+        }
+        cnt++; // Increment the counter
+        j++; // Move to the next element in array b
+    }
+
+    // Determine and return median
+    if(n%2==1){ // If total number of elements is odd
+        return ind2el; // Median is the element at position ind2
+    }
+    // If total number of elements is even, median is average of elements at ind1 and ind2
+    return (double)(ind2el+ind1el)/2.0;
+}
+
+
 int main(){
     vector<int> arr{8 ,4 ,2,3 };
     int ans=smallestDivisor(arr,10);
