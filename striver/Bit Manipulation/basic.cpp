@@ -41,37 +41,28 @@ int countSetBits(int n) {
     return count;
 }
 
-
-
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-using namespace std;
-
-
-
-
-
-
-vector<int> bitManipulation(int num, int j)
-{
-    vector<int> ans;
-    int firstAns = (num >> (j - 1)) & 1;
-
-    int secondAns = (num ^ (1 << (j-1)));
+/**
+ * @brief Counts the total number of set bits (bits with value 1) in the binary representation 
+ *        of integers from 1 to n using Brian Kernighan's Algorithm.
+ * 
+ * @param n The upper limit of the range of integers to count set bits for.
+ * @return The total count of set bits in the range from 1 to n.
+ */
+int countSetBits(int n) {
+    int count = 0; // Initialize count to 0 to keep track of the total number of set bits
     
-    ans.push_back(firstAns);
-    ans.push_back(secondAns);
-    ans.push_back(num);
-    return ans;
+    // Loop through each number from 1 to n
+    for (int i = 1; i <= n; i++) {
+        int num = i; // Store the current number in a separate variable
+        
+        // Count the number of set bits in the current number using Brian Kernighan's Algorithm
+        while (num != 0) {
+            num = num & (num - 1); // Clear the least significant set bit
+            count++; // Increment count
+        }
+    }
+    
+    return count; // Return the total count of set bits in the range from 1 to n
 }
 
 
-
-
-int main(){
-   int ans=(12|11);
-   cout<< ans;
-
-}
