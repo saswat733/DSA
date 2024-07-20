@@ -51,7 +51,7 @@ void bubbleSort(std::vector<int>& arr, int n) {
             if (arr[j] < arr[i]) {
                 swap(arr[i], arr[j]);
             }
-        }
+        }+
     }
 }
 

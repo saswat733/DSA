@@ -105,4 +105,87 @@ int main() {
 }
 
 
+                //find the next greater element 496
+
+#include <vector>
+using namespace std;
+                        //brute force
+class Solution {
+public:
+    /**
+     * Finds the next greater element for each element in nums1 based on their positions in nums2.
+     * 
+     * @param nums1 The first vector of integers.
+     * @param nums2 The second vector of integers.
+     * @return A vector containing the next greater element for each element in nums1.
+     */
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        // Initialize a vector to store the results
+        vector<int> ans;
+
+        // Iterate over each element in nums1
+        for (int j = 0; j < nums1.size(); j++) {
+            // Initialize greater element to -1
+            int greater = -1;
+            
+            // Start from the end of nums2 and traverse backwards
+            int i = nums2.size() - 1;
+            while (nums1[j] != nums2[i]) {
+                // If element in nums2 is greater than element in nums1, update greater
+                if (nums2[i] > nums1[j]) {
+                    greater = nums2[i];
+                }
+                i--; // Move to the previous element in nums2
+            }
+            
+            // Add the next greater element to the result vector
+            ans.push_back(greater);
+        }
+        
+        // Return the result vector
+        return ans;
+    }
+};
+
+
+                //using hashmap and stack
+#include <vector>
+#include <unordered_map>
+#include <stack>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        // Hash map to store the next greater element for each element in nums2
+        unordered_map<int, int> nextGreater;
+        // Stack to keep track of the next greater elements
+        stack<int> st;
+
+        // Traverse nums2 from right to left
+        for (int i = nums2.size() - 1; i >= 0; --i) {
+            // Maintain the stack such that the top of the stack is the next greater element
+            while (!st.empty() && st.top() <= nums2[i]) {
+                st.pop();
+            }
+            // If the stack is not empty, the top of the stack is the next greater element
+            if (!st.empty()) {
+                nextGreater[nums2[i]] = st.top();
+            } else {
+                nextGreater[nums2[i]] = -1;
+            }
+            // Push the current element onto the stack
+            st.push(nums2[i]);
+        }
+
+        // Prepare the result for nums1
+        vector<int> ans;
+        for (int num : nums1) {
+            ans.push_back(nextGreater[num]);
+        }
+
+        return ans;
+    }
+};
+
 
