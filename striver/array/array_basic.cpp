@@ -129,6 +129,50 @@ int isSorted(int n, vector<int> arr)
     return 1;
 }
 
+
+//program to chekc if array sorted and rotated
+
+#include <vector>
+
+bool check(std::vector<int>& nums) {
+    int count = 0;
+    int n = nums.size();
+
+    // Iterate through the array
+    for (int i = 0; i < n; i++) {
+        // Compare current element with the next element (with wrap-around using modulo)
+        if (nums[i] > nums[(i + 1) % n]) {
+            count++;
+        }
+    }
+    // If count is greater than 1, more than one rotation would be needed
+    return count <= 1;
+}
+
+/*
+ * Function: check
+ * ----------------
+ * Checks if the given array can be considered sorted after at most one rotation.
+ *
+ * Parameters:
+ * - nums: A reference to a vector of integers.
+ *
+ * Returns:
+ * - A boolean value:
+ *   - true if the array can be considered sorted after at most one rotation.
+ *   - false otherwise.
+ *
+ * Complexity Analysis:
+ * - Time Complexity: O(n), where n is the number of elements in the array.
+ *   - The function iterates through the array once, performing constant-time operations for each element.
+ *
+ * - Space Complexity: O(1)
+ *   - The function uses a fixed amount of extra space (an integer counter), regardless of the input size.
+ */
+
+
+
+
 // brute force for this problem is storing the elements in stack and if the top element of stack is same to the element going to be inserted we move ahead
 // program to remove duplicate from arrays and give the count of new array
 int removeDuplicates(vector<int> &arr, int n)
@@ -349,6 +393,37 @@ vector<int> merge_sortedArray(vector<int> a, vector<int> b)
     return ans;
 }
 
+//find the number missing from 0-N array
+#include <vector>
+
+int missingNumber(std::vector<int>& nums) {
+    int size = nums.size();
+    int sum = 0;
+    int Osum = 0;
+    
+    // Calculate the sum of the first 'size' natural numbers
+    for (int i = 0; i <= size; i++) {
+        sum += i;
+    }
+    
+    // Calculate the sum of elements in the input array
+    for (int i = 0; i < size; i++) {
+        Osum += nums[i];
+    }
+    
+    // The missing number is the difference between the expected sum and the actual sum
+    return sum - Osum;
+}
+/*
+Time Complexity
+
+    The first loop runs from 0 to size, which has a time complexity of O(n)O(n), where nn is the size of the array.
+    The second loop also runs from 0 to size - 1, which has a time complexity of O(n)O(n).
+    Overall, the time complexity is O(n)+O(n)=O(n)O(n)+O(n)=O(n).
+*/
+
+
+/************************************************************************ */
 
 //find the number that appears once and other numbers twice         
 
@@ -444,18 +519,28 @@ int missingNumberr(vector<int>& a, int N) {
 }
 
 //bestest solution using xor
-int missingNumberrr(vector<int>& a,int N){
-    int xor1=0;
-    int xor2=0;
-    int n=N-1;
-    for(int i=1;i<n;i++){
-        xor2=xor2^a[i];
-        xor1=xor1^(i+1);
-    }
-   xor1=xor1^N;
-    return xor1^xor2;
+#include <vector>
 
+int missingNumber(std::vector<int>& a) {
+    int xor1 = 0; // XOR of all numbers from 0 to N
+    int xor2 = 0; // XOR of all elements in the array
+
+    int N = a.size(); // Size of the array, which is N
+
+    // XOR all elements in the array
+    for (int i = 0; i < N; i++) {
+        xor2 ^= a[i];
+    }
+
+    // XOR all numbers from 0 to N
+    for (int i = 0; i <= N; i++) {
+        xor1 ^= i;
+    }
+
+    // The missing number is the result of XORing xor1 and xor2
+    return xor1 ^ xor2;
 }
+
 
 
 
@@ -557,53 +642,75 @@ int generateSub(const vector<int> arr,int target){
 //better solution using hash this solution will work in all cases if ther is +ve -ve 0 numbers in array so this can also be considered as most optimal solution
 // having time complexity of O(nLogn) is ordered map is used and O(nx O(1)) if unordered map is used
 
-#include <bits/stdc++.h> 
-int getLongestSubarray(vector<int>& nums, int k){
-    map<long long,int> preSumMap;
-    long long sum=0;
-    int maxLength=0;
-    for(int i=0;i<nums.size();i++){
-        sum+=nums[i];
-        if(sum==k){
-            maxLength=max(maxLength,i+1);
-        }
-        long long rem=sum-k;
-        if(preSumMap.find(rem)!=preSumMap.end()){
-            int len=i-preSumMap[rem];
-            maxLength=max(maxLength,len);
+#include <bits/stdc++.h>
+using namespace std;
 
+int getLongestSubarray(vector<int>& nums, int k) {
+    map<long long, int> preSumMap; // Map to store prefix sums and their earliest indices
+    long long sum = 0;             // Variable to store the current prefix sum
+    int maxLength = 0;             // Variable to store the maximum length of subarray with sum k
+
+    for (int i = 0; i < nums.size(); i++) {
+        sum += nums[i]; // Update the prefix sum
+
+        if (sum == k) {
+            // If the current prefix sum is equal to k, update maxLength
+            maxLength = max(maxLength, i + 1);
         }
-        if(preSumMap.find(sum)==preSumMap.end()){
-            preSumMap[sum]=i;
+
+        // Calculate the prefix sum required to get the sum k in the subarray
+        long long rem = sum - k;
+
+        // If the required prefix sum is found in the map, it means there is a subarray
+        // that sums to k. Update maxLength accordingly.
+        if (preSumMap.find(rem) != preSumMap.end()) {
+            int len = i - preSumMap[rem]; // Length of the subarray with sum k
+            maxLength = max(maxLength, len);
+        }
+
+        // Store the current prefix sum and its index in the map if it is not already present
+        if (preSumMap.find(sum) == preSumMap.end()) {
+            preSumMap[sum] = i;
         }
     }
-    return maxLength;
+
+    return maxLength; // Return the maximum length of subarray with sum k
 }
 
 
-//best solution if only the 0,+ve numbers are givenr
+
+
+//best solution if only the 0,+ve numbers are givenr we will be using two pointer approach
 // time complexity is O(2n)
 
 int longestSubarrayWithSumK(vector<int> arr, long long target) {
-    int n=arr.size();
-    int length=0;
-    int left=0,right=0;
-    long long sum=arr[0];
-    while(right<n){
-        while(sum>target && left<=right){
-            sum-=arr[left];
+    int n = arr.size();
+    int length = 0;  // Variable to store the maximum length of subarray with sum equal to target
+    int left = 0, right = 0;  // Two pointers to define the current window
+    long long sum = arr[0];  // Variable to store the current sum of the window
+
+    while (right < n) {
+        // Shrink the window from the left if the current sum is greater than the target
+        while (sum > target && left <= right) {
+            sum -= arr[left];
             left++;
         }
-        if(sum==target){
-            length=max(length,right-left+1);
+
+        // Check if the current sum is equal to the target
+        if (sum == target) {
+            length = max(length, right - left + 1);
         }
+
+        // Expand the window by moving the right pointer
         right++;
-        if(right<n){
-            sum=sum+arr[right];
+        if (right < n) {
+            sum += arr[right];
         }
     }
+
     return length;
 }
+
 
 
 

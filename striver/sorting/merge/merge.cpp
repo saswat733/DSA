@@ -1,13 +1,13 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 /*
-The time complexity of the merge sort algorithm is O(nlog⁡n)O(nlogn), where nn is the number of elements in the array. This time complexity arises because the algorithm divides the array into halves recursively until each subarray contains only one element, and then merges the subarrays back together in O(n)O(n) time.
+The time complexity of the merge sort algorithm is O(n log n), where n is the number of elements in the array. This time complexity arises because the algorithm divides the array into halves recursively until each subarray contains only one element, and then merges the subarrays back together in O(n) time.
 
-The space complexity of the merge sort algorithm is O(n)O(n), where nn is the number of elements in the array. This space complexity arises because the algorithm requires additional space to store the temporary subarrays during the merge process. The space required is proportional to the size of the input array.
+The space complexity of the merge sort algorithm is O(n), where n is the number of elements in the array. This space complexity arises because the algorithm requires additional space to store the temporary subarrays during the merge process. The space required is proportional to the size of the input array.
 */
 
-// Function to merge two sorted subarrays
+// Function to merge two sorted subarrays into a single sorted subarray
 void merge(int arr[], int l, int r, int mid) {
     // Calculate the sizes of the two subarrays
     int n1 = mid - l + 1; // Size of left subarray
@@ -28,22 +28,15 @@ void merge(int arr[], int l, int r, int mid) {
     }
 
     // Merge the two temporary arrays back into the original array
-
-    // Initialize indices for the two temporary arrays and the original array
     int i = 0;    // Index for the left subarray
     int j = 0;    // Index for the right subarray
-    int index = l; // Index for the merged array, starts from the left index
+    int index = l; // Index for the merged array
 
     // Compare elements from both subarrays and merge them in sorted order
     while (i < n1 && j < n2) {
-        // If the current element of the left subarray is smaller or equal, 
-        // place it in the merged array and move to the next element in the left subarray
         if (leftarray[i] <= rightarray[j]) {
             arr[index++] = leftarray[i++];
-        }
-        // If the current element of the right subarray is smaller,
-        // place it in the merged array and move to the next element in the right subarray
-        else {
+        } else {
             arr[index++] = rightarray[j++];
         }
     }
@@ -61,27 +54,33 @@ void merge(int arr[], int l, int r, int mid) {
 
 // Function to perform merge sort on the given array within the specified range
 void mergeSort(int arr[], int l, int r) {
-    // If there are more than one element in the array
     if (l < r) {
         // Find the middle index to divide the array into two halves
         int mid = l + (r - l) / 2;
 
-        // Recursively sort the first half
+        // Recursively sort the first half of the array
         mergeSort(arr, l, mid);
 
-        // Recursively sort the second half
+        // Recursively sort the second half of the array
         mergeSort(arr, mid + 1, r);
 
-        // Merge the sorted halves
+        // Merge the sorted halves into a single sorted array
         merge(arr, l, r, mid);
     }
 }
 
+int main() {
+    // Initialize the array to be sorted
+    int arr[5] = {12, 4, 5, 26, 7};
 
-int main(){
-    int arr[5]={12,4,5,26,7};
-    mergeSort(arr,0,4);
-    for(int i=0;i<5;i++){
-        cout<<arr[i]<<" ";
+    // Perform merge sort on the entire array
+    mergeSort(arr, 0, 4);
+
+    // Print the sorted array
+    for (int i = 0; i < 5; i++) {
+        cout << arr[i] << " ";
     }
+    cout << endl;
+
+    return 0;
 }

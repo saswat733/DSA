@@ -87,6 +87,28 @@ void recursive_insertion(vector<int> &arr,int n,int index){
 }
 
 
+//corrected insertion code
+
+
+
+
+void insertion(vector<int> &arr[],int n){
+    int key,j=0;
+    for(int i=1;i<n;i++){
+        key=arr[i];
+        j=i-1;
+        
+        while(j>=0 && arr[j]>arr[i]){
+            swap(arr[j],arr[i]);
+            j--;
+        }
+        arr[j+1]=key;
+    }
+}
+
+
+
+
 int main(){
     vector<int> arr{12,3,4,2,70};
     for(int i=0;i<arr.size();i++){

@@ -239,20 +239,19 @@ long long maxSubarraySumm(vector<int> arr,int n){
 //best solution
 // kadane's algorithm
 // space complexity:O(1) and time:O(n)
-long long maxSubarraySum(vector<int> arr, int n)
-{
-    // Write your code here.
-    int sum=0;
-    int maxi=INT_MIN;
-    for(int i=0;i<n;i++){
-        sum=sum+arr[i];
-        if(sum<0){
-            sum=0;
+int maxSubArray(vector<int>& arr) {
+    int max_current = arr[0];
+    int max_global = arr[0];
+
+    for (int i = 1; i < arr.size(); i++) {
+        max_current = max(arr[i], max_current + arr[i]);
+        if (max_current > max_global) {
+            max_global = max_current;
         }
-        maxi=max(maxi,sum);
     }
-    return maxi;
+    return max_global;
 }
+
 
 
 
