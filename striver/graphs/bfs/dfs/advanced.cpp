@@ -424,6 +424,8 @@ public:
 //Replace o's with x's
 
 
+//time compelextiy: O(mXn)
+//space complexity: O(mXn)
 class Solution {
 private:
     // Helper function for DFS traversal
